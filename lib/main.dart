@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // This is the theme of your application.
           //
@@ -83,22 +84,48 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: Center(
         child: Padding(
+          
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
+            
             children: [
-              ElevatedButton(
+               /*Image.asset(
+              'images/gandalf.jpeg',
+              width: 500.0,
+              height: 140.0,
+              //fit: BoxFit.cover,
+            ),*/
+            SizedBox(height: 130),
+            
+
+            Image.asset('assets/gandalf.png',
+            width: 100,
+            ),  
+            SizedBox(
+              height:50),
+            SizedBox(
+              width: 250,
+              height:50,
+              
+              child:ElevatedButton(
+                style: ElevatedButton.styleFrom(shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0),
+               ),),
                 onPressed: () {
                   sawo.signIn(
                     context: context,
                     identifierType: 'phone_number_sms',
                     callback: payloadCallback,
                   );
+
                 },
                 child: const Text('Phone Login'),
-              ),
+              ),),
+            
             ],
           ),
+          
         ),
       ),
     );
