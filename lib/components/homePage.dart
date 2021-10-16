@@ -51,10 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int resultListened = 0;
   List<LocaleName> _localeNames = [];
   final SpeechToText speech = SpeechToText(); // speech to text
-  String? uId;
+  String? uId = "uid";
   @override
   void initState() {
-    String uId = this.number.toString();
     super.initState();
     initTts();
   }
@@ -245,7 +244,6 @@ class _MyHomePageState extends State<MyHomePage> {
   //API
 
   Future<Album> fetchAlbum() async {
-    print(uId);
     final response = await http.get(Uri.parse(
         'http://api.brainshop.ai/get?bid=158249&key=spYNcFXB3JzJI49V&uid=$uId&msg=${messageInsert.text})'));
 
@@ -271,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Chat bot",
+          "Grandalf Talks",
         ),
       ),
       body: Container(
