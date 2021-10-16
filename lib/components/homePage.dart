@@ -16,7 +16,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage(number, {Key? key}) : super(key: key);
+  final String number;
+  const MyHomePage(this.number, {Key? key}) : super(key: key);
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
 // how it looks.
@@ -27,15 +28,17 @@ class MyHomePage extends StatefulWidget {
 // always marked "final".
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(this.number);
 }
 
 //text to speech
 enum TtsState { playing, stopped, paused, continued }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String? number;
+  _MyHomePageState(number);
   final messageInsert = TextEditingController();
-  String uId = "id";
+
   List<Album> messages = [];
   String _hasSpeech = "idle";
   double level = 0.0;
@@ -48,9 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int resultListened = 0;
   List<LocaleName> _localeNames = [];
   final SpeechToText speech = SpeechToText(); // speech to text
-
+  String? uId;
   @override
   void initState() {
+    String uId = this.number.toString();
     super.initState();
     initTts();
   }
@@ -241,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //API
 
   Future<Album> fetchAlbum() async {
+    print(uId);
     final response = await http.get(Uri.parse(
         'http://api.brainshop.ai/get?bid=158249&key=spYNcFXB3JzJI49V&uid=$uId&msg=${messageInsert.text})'));
 
@@ -393,9 +398,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(10.0),
             child: Bubble(
                 radius: Radius.circular(20.0),
-                color: album.isBot
-                    ? Color.fromRGBO(23, 157, 139, 1)
-                    : Colors.orangeAccent,
+                color: album.isBot ? Colors.green : Colors.blue,
                 elevation: 0.0,
                 child: Padding(
                   padding: EdgeInsets.all(2.0),

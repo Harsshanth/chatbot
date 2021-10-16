@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: LoginScreen());
   }
@@ -66,54 +66,41 @@ class _LoginScreenState extends State<LoginScreen> {
     if (number != "") {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage(context)),
+        MaterialPageRoute(builder: (context) => MyHomePage(number)),
       );
     }
 
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => MyHomePage(number)));
+  }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Sawo Flutter Example"),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("UserData :- $number"),
-                ElevatedButton(
-                  onPressed: () {
-                    sawo.signIn(
-                      context: context,
-                      identifierType: 'email',
-                      callback: payloadCallback,
-
-                      // Navigator.push(context,MaterialPageRoute(builder: (context) => const MyHomePage()) );
-                    );
-                  },
-                  child: const Text('Email Login'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    sawo.signIn(
-                      context: context,
-                      identifierType: 'phone_number_sms',
-                      callback: payloadCallback,
-                    );
-                  },
-                  child: const Text('Phone Login'),
-                ),
-              ],
-            ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("GANDALF"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  sawo.signIn(
+                    context: context,
+                    identifierType: 'phone_number_sms',
+                    callback: payloadCallback,
+                  );
+                },
+                child: const Text('Phone Login'),
+              ),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
 }
